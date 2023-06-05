@@ -1,0 +1,13 @@
+body,
+h1,
+h2 {
+  padding: 0;
+  margin: 0;
+}
+a {
+  text-decoration: none;
+  color: #333;
+}
+img {
+  vertical-align: top;
+}
