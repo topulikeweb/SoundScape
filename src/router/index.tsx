@@ -3,10 +3,12 @@ import { RouteObject } from 'react-router';
 import { Navigate } from 'react-router-dom';
 import { lazy } from 'react';
 
+const Result = lazy(() => import('@/views/result'));
 const Discovery = lazy(() => import('@/views/discovery'));
-const Mine = lazy(() => import('@/views/mine'));
+const Mine = lazy(() => import('src/views/mine'));
 const Focus = lazy(() => import('@/views/focus'));
-const DownLoad = lazy(() => import('@/views/downLoad'));
+const Search = lazy(() => import('@/views/search'));
+
 const routes: RouteObject[] = [
   {
     path: '/',
@@ -21,13 +23,16 @@ const routes: RouteObject[] = [
     element: <Focus />,
   },
   {
-    path: '/DownLoad',
-    element: <DownLoad />,
+    path: '/Search',
+    element: <Search />,
   },
   {
     path: '/Mine',
     element: <Mine />,
   },
+  {
+    path: '/Result',
+    element: <Result />,
+  },
 ];
-
 export default routes;

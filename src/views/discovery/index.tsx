@@ -1,15 +1,13 @@
 import { memo } from 'react';
 import type { FC } from 'react';
-import { fetchUsers } from '@/service';
-import { useEffect } from 'react';
+import Recommend from '@/views/discovery/c-views/recommend/recommend';
 
 const Discovery: FC = function () {
-  useEffect(() => {
-    fetchUsers().then((users) => {
-      console.log('Users:', users);
-    });
-  }, []);
-  return <div>Discovery</div>;
+  return (
+    <div>
+      <Recommend />
+    </div>
+  );
 };
 
 export default memo(Discovery);

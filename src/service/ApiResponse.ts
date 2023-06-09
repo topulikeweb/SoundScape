@@ -50,12 +50,12 @@ class ApiResponse {
     );
   }
 
-  public get<T>(url: string, data?: object | string | number): Promise<T> {
-    return this.axiosInstance.get(url, { data });
+  public get<T>(url: string, params?: any): Promise<T> {
+    return this.axiosInstance.get(url, params);
   }
 
-  public post<T>(url: string, data?: object): Promise<T> {
-    return this.axiosInstance.post(url, { data });
+  public post<T>(url: string, data?: any): Promise<T> {
+    return this.axiosInstance.post(url, data);
   }
 }
 

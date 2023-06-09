@@ -9,4 +9,7 @@ module.exports = {
       '@': resolve('src'),
     },
   },
+  devServer: {
+    port: 8080, // 指定你想要的端口号
+  },
 };

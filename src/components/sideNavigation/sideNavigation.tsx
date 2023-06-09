@@ -1,15 +1,16 @@
 import React, { useState } from 'react';
 import {
-  AppstoreOutlined,
-  // ContainerOutlined,
-  DesktopOutlined,
-  // MailOutlined,
-  MenuFoldOutlined,
-  MenuUnfoldOutlined,
-  PieChartOutlined,
+  ArrowsAltOutlined,
+  BankOutlined,
+  CompassFilled,
+  HeartFilled,
+  HomeFilled,
+  ShrinkOutlined,
 } from '@ant-design/icons';
+import { HeaderWrapper } from '@/components/sideNavigation/style';
 import type { MenuProps } from 'antd';
 import { Button, Menu } from 'antd';
+import { useNavigate } from 'react-router-dom';
 
 type MenuItem = Required<MenuProps>['items'][number];
 
@@ -30,35 +31,53 @@ function getItem(
 }
 
 const items: MenuItem[] = [
-  getItem('主页', '1', <PieChartOutlined />),
-  getItem('搜索', '2', <DesktopOutlined />),
+  getItem('主页', '1', <HomeFilled />),
+  getItem('搜索', '2', <BankOutlined />),
 
   // getItem('Navigation One', 'sub1', <MailOutlined />, [
   //   getItem('Option 5', '5'),
   //   getItem('Option 6', '6'),
   //   getItem('Option 7', '7'),
   //   getItem('Option 8', '8'),
-  // ]),
-
-  getItem('Navigation Two', 'sub2', <AppstoreOutlined />, [
-    getItem('Option 9', '9'),
-    getItem('Option 10', '10'),
-
-    getItem('Submenu', 'sub3', null, [getItem('Option 11', '11'), getItem('Option 12', '12')]),
-  ]),
+  // ]),]
+  getItem('---------- 音乐库 ----------', '3', <CompassFilled />),
+  getItem('已点赞歌曲', '4', <HeartFilled />),
 ];
 
 const SideNavigation: React.FC = () => {
+  const navigate = useNavigate();
   const [collapsed, setCollapsed] = useState(false);
 
   const toggleCollapsed = () => {
     setCollapsed(!collapsed);
   };
+  /**
+   * @author topu
+   * @date 2023/6/6
+   * @Description 切换路由
+   * @return 返回值
+   */
+  const changeRouter = (e: { key: string }) => {
+    console.log(e.key);
+    switch (e.key) {
+      case '1':
+        navigate('/discovery');
+        break;
+      case '2':
+        navigate('/Search');
+        break;
+      case '3':
+        navigate('/Focus');
+        break;
+      case '4':
+        navigate('/Mine');
+    }
+  };
 
   return (
-    <div style={{ width: 256 }}>
-      <Button type="primary" onClick={toggleCollapsed} style={{ marginBottom: 16 }}>
-        {collapsed ? <MenuUnfoldOutlined /> : <MenuFoldOutlined />}
+    <HeaderWrapper>
+      <Button type="primary" onClick={toggleCollapsed} style={{ marginBottom: 18 }}>
+        {collapsed ? <ArrowsAltOutlined /> : <ShrinkOutlined />}
       </Button>
       <Menu
         defaultSelectedKeys={['1']}
@@ -67,9 +86,16 @@ const SideNavigation: React.FC = () => {
         theme="dark"
         inlineCollapsed={collapsed}
         items={items}
-        style={{ backgroundColor: '#121212' }}
+        onClick={changeRouter}
+        style={{
+          minWidth: '0',
+          maxWidth: '300px',
+          flex: 'auto',
+          backgroundColor: '#121212',
+          height: '100%',
+        }}
       />
-    </div>
+    </HeaderWrapper>
   );
 };
 
