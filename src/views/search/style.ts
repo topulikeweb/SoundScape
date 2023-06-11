@@ -1,4 +1,5 @@
 import styled from 'styled-components';
+import { darkBackGroundColor } from '@/assets/theme';
 
 const HySearchWrapper = styled.div`
   .searchBox {
@@ -13,12 +14,12 @@ const HySearchWrapper = styled.div`
   }
 
   .cardBoxItem {
-    width: 7vw;
-    height: 60px;
-    margin-right: 40px;
-    margin-left: 40px;
+    width: 9vw;
+    height: 20vh;
+    margin-right: 10px;
+    margin-left: 20px;
     text-align: center;
-    line-height: 60px;
+    line-height: 205px;
     border-radius: 15px;
     opacity: 0.7;
     font-size: 20px;
@@ -38,6 +39,30 @@ const HySearchWrapper = styled.div`
   .hotSongsItem {
     margin-top: 30px;
     margin-right: 50px;
+  }
+
+  .searchResult {
+    width: 450px;
+    background-color: ${darkBackGroundColor};
+    position: absolute;
+    margin-left: 30px;
+    margin-top: -15px;
+    border-radius: 10px;
+    overflow: hidden;
+  }
+
+  .searchResultItem {
+    width: 100%;
+    position: relative;
+    line-height: 40px;
+    //margin-left: 30px;
+    font-size: 12px;
+    padding-left: 20px;
+    height: 40px;
+  }
+
+  .searchResultItem:hover {
+    background-color: #333333;
   }
 `;
 

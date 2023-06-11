@@ -2,12 +2,26 @@ import { memo, useEffect, useState } from 'react';
 import type { FC } from 'react';
 import { Input } from 'antd';
 import HySearchWrapper from '@/views/search/style';
-import { getHotSearchSongs, getPlayListCategory } from '@/service';
+import {
+  getHotSearchSongs,
+  getPlayListCategory,
+  getSearchSuggestion,
+  toSearchResult,
+} from '@/service';
 import { IGetPlaylistDetails } from '@/service/type';
 import { useNavigate } from 'react-router-dom';
 import { Button, Popover } from 'antd';
 
-const onSearch = (value: string) => console.log(value);
+const onSearch = (value: string) => {
+  return toSearchResult(value, 10, 0)
+    .then((res: any) => {
+      console.log(res);
+    })
+    .catch((error) => {
+      console.log(error);
+    });
+};
+const [resultList, setResultList] = useState([]);
 const { Search } = Input;
 
 const DownLoad: FC = function () {
@@ -15,6 +29,7 @@ const DownLoad: FC = function () {
   const [hotSongsList, setHotSongsList] = useState([]);
   const [categoryList, setCategoryList] = useState([]);
   const navigate = useNavigate();
+  const [searchResult, setSearchResult] = useState([]);
   useEffect(() => {
     getPlayListCategoryFn();
     getHotSearchSongsFn();
@@ -65,7 +80,6 @@ const DownLoad: FC = function () {
     getHotSearchSongs()
       .then((res: any) => {
         setHotSongsList(res.data.data);
-        console.log(res.data.data);
       })
       .catch((error) => {
         console.log(error);
@@ -80,7 +94,36 @@ const DownLoad: FC = function () {
   const getText = (item: { searchWord: string }) => {
     setText(item.searchWord);
   };
-
+  /**
+   * @author topu
+   * @date 2023/6/10
+   * @Description 搜索框聚焦获取搜索建议
+   * @return 返回值
+   */
+  const getSearchSuggestionFn = async (e: any) => {
+    setText(e.target.value);
+    getSearchSuggestion(e.target.value)
+      .then((res: any) => {
+        if (res.data.result.songs.length !== 0) {
+          setSearchResult(res.data.result.songs);
+        } else {
+          setSearchResult([]);
+        }
+      })
+      .catch((error) => {
+        console.log(error);
+      });
+  };
+  /**
+   * @author topu
+   * @date 2023/6/11
+   * @Description 点击建议歌曲更改文本框内容
+   * @return 返回值
+   * @param item
+   */
+  const toSearchResult = (item: any) => {
+    setText(item.name);
+  };
   return (
     <HySearchWrapper>
       <Search
@@ -91,7 +134,18 @@ const DownLoad: FC = function () {
         enterButton="搜一下"
         size="large"
         onSearch={onSearch}
+        onChange={(e) => getSearchSuggestionFn(e)}
       />
+      {/*搜索结果*/}
+      <div className="searchResult">
+        {searchResult.map((item: { name: string }, index) => {
+          return (
+            <div key={index} className="searchResultItem" onClick={() => toSearchResult(item)}>
+              {item.name}
+            </div>
+          );
+        })}
+      </div>
 
       <div className="hotSongs">
         <div

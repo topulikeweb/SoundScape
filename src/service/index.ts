@@ -69,3 +69,20 @@ export const getPlayListCategory = async () => {
 export const getHotSearchSongs = async () => {
   return await apiResponse.get('/search/hot/detail');
 };
+
+/**
+ * @author topu
+ * @date 2023/6/10
+ * @Description 获取搜索建议
+ * @return 返回值
+ */
+
+export const getSearchSuggestion = (keywords: string) => {
+  return apiResponse.get('/search/suggest', { params: { keywords } });
+};
+
+export const toSearchResult = (keywords: string, limit: number, offset: number) => {
+  return apiResponse.get('/search', {
+    params: { keywords, limit, offset },
+  });
+};

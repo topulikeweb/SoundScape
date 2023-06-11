@@ -156,8 +156,8 @@ const Result: FC = () => {
                 height: '30px',
                 fontSize: '12px',
                 fontWeight: '550',
-                position: 'absolute',
-                top: '80px',
+                position: 'relative',
+                top: '30px',
               }}
             >
               歌单
