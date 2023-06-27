@@ -4,7 +4,7 @@ import { FC, memo, useEffect, useState } from 'react';
 import { useSelector } from 'react-redux';
 import HyPlayerWrapper from '@/components/player/style';
 import { Image } from 'antd';
-import musicImage from '@/assets/musicImage.png';
+import musicImage from '@/assets/img/musicImage.png';
 
 interface MusicInfo {
   name: string;
@@ -29,7 +29,6 @@ const Player: FC = () => {
     currentSetMusicInfo(musicInfo);
     setCurrentMusicUrl(musicUrl);
   }, [musicUrl]);
-  console.log(musicInfo.al);
   return (
     <HyPlayerWrapper>
       <div className="containerBox">

@@ -5,7 +5,7 @@ import SideNavigation from '@/components/sideNavigation/sideNavigation';
 import { ConfigProvider } from 'antd';
 import TopNavigation from '@/components/topNavigation/topNavigation';
 
-import Player from '@/components/player';
+import Player from '@/components/player/Player';
 
 function App() {
   return (

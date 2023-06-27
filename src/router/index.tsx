@@ -2,6 +2,7 @@ import { RouteObject } from 'react-router';
 
 import { Navigate } from 'react-router-dom';
 import { lazy } from 'react';
+import MusicResult from '@/views/MusicResult';
 
 const Result = lazy(() => import('@/views/result'));
 const Discovery = lazy(() => import('@/views/discovery'));
@@ -33,6 +34,10 @@ const routes: RouteObject[] = [
   {
     path: '/Result',
     element: <Result />,
+  },
+  {
+    path: '/MusicResult',
+    element: <MusicResult />,
   },
 ];
 export default routes;

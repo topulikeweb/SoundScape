@@ -15,7 +15,10 @@ const TheCard: React.FC<CardComponentProps> = ({ ImageSrc, theDescription, theTi
     <Card
       className="Card"
       hoverable
-      style={{ width: 195, height: 255 }}
+      style={{
+        width: '100%',
+        height: '100%',
+      }}
       cover={<img alt="example" className="coverImage" src={ImageSrc} />}
     >
       <Meta title={theTitle} description={theDescription} />

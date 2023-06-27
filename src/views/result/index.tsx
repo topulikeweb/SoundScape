@@ -1,7 +1,7 @@
 import { FC, memo, useEffect, useState } from 'react';
 import HyWrapper from '@/views/result/style';
 import { Image, Pagination } from 'antd';
-import musicImage from '@/assets/musicImage.png';
+import musicImage from '@/assets/img/musicImage.png';
 import { useLocation } from 'react-router';
 import { getMusicUrl, getPlaylistAllSongs, getPlaylistDetails } from '@/service';
 import { useDispatch } from 'react-redux';

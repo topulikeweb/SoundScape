@@ -14,7 +14,6 @@ const music = createSlice({
     // 获取播放音乐的信息
     getMusicInfo(state, { payload }) {
       state.musicInfo = payload;
-      console.log(state.musicInfo);
     },
   },
 });

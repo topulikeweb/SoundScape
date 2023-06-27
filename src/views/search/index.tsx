@@ -6,22 +6,14 @@ import {
   getHotSearchSongs,
   getPlayListCategory,
   getSearchSuggestion,
-  toSearchResult,
+  toSearchSongsResult,
 } from '@/service';
 import { IGetPlaylistDetails } from '@/service/type';
 import { useNavigate } from 'react-router-dom';
 import { Button, Popover } from 'antd';
+import { changeMusicList } from '@/store/moudle/musicList';
+import { useDispatch } from 'react-redux';
 
-const onSearch = (value: string) => {
-  return toSearchResult(value, 10, 0)
-    .then((res: any) => {
-      console.log(res);
-    })
-    .catch((error) => {
-      console.log(error);
-    });
-};
-const [resultList, setResultList] = useState([]);
 const { Search } = Input;
 
 const DownLoad: FC = function () {
@@ -30,11 +22,17 @@ const DownLoad: FC = function () {
   const [categoryList, setCategoryList] = useState([]);
   const navigate = useNavigate();
   const [searchResult, setSearchResult] = useState([]);
+  const dispatch = useDispatch();
   useEffect(() => {
     getPlayListCategoryFn();
     getHotSearchSongsFn();
   }, []);
-
+  /**
+   * @author topu
+   * @date 2023/6/11
+   * @Description 获取歌单分类
+   * @return 返回值
+   */
   const getPlayListCategoryFn = () => {
     getPlayListCategory()
       .then((res: any) => {
@@ -44,7 +42,28 @@ const DownLoad: FC = function () {
         console.log(error);
       });
   };
-
+  /**
+   * @author topu
+   * @date 2023/6/11
+   * @Description 发起搜索请求
+   * @return 返回值
+   * @param value
+   */
+  const onSearch = (value: string) => {
+    // 判断搜索框是否有内容
+    if (value) {
+      toSearchSongsResult(value, 90, 0).then((res: any) => {
+        console.log(res.data.result.songs);
+        dispatch(changeMusicList(res.data));
+        // 跳转到歌曲搜索结果界面
+        navigate(`/MusicResult?keyword=${value}`);
+      });
+      // navigate(`/Result?id=${value}`);
+    } else {
+      return false;
+    }
+  };
+  // 分类卡片的背景颜色
   const getRandomColor = () => {
     const colors = [
       '#ff7a45',

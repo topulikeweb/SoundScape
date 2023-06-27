@@ -81,7 +81,16 @@ export const getSearchSuggestion = (keywords: string) => {
   return apiResponse.get('/search/suggest', { params: { keywords } });
 };
 
-export const toSearchResult = (keywords: string, limit: number, offset: number) => {
+/**
+ * @author topu
+ * @date 2023/6/27
+ * @Description 搜索歌曲
+ * @return 返回值
+ * @param keywords
+ * @param limit
+ * @param offset
+ */
+export const toSearchSongsResult = (keywords: string, limit: number, offset: number) => {
   return apiResponse.get('/search', {
     params: { keywords, limit, offset },
   });

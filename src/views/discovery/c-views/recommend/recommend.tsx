@@ -4,6 +4,7 @@ import { getHomePageData } from '@/service';
 import TheCard from '@/components/card/theCard';
 import RecommendWrapper from '@/views/discovery/c-views/recommend/style';
 import { useNavigate } from 'react-router-dom';
+import type { RecommendListItem } from '@/views/discovery/c-views/recommend/recommend_type';
 
 const Recommend: FC = () => {
   const navigate = useNavigate();
@@ -19,7 +20,7 @@ const Recommend: FC = () => {
    * @return 返回值
    */
   const getData = () => {
-    getHomePageData(8)
+    getHomePageData(5)
       .then((res: any) => {
         setRecommendList(res.data.result);
       })
@@ -27,6 +28,14 @@ const Recommend: FC = () => {
         console.log(error);
       });
   };
+
+  /**
+   * @author topu
+   * @date 2023/6/27
+   * @Description 携带id进行跳转
+   * @return 返回值
+   * @param id
+   */
 
   const sendId = (id: number) => {
     navigate(`/Result?id=${id}`);
@@ -36,23 +45,14 @@ const Recommend: FC = () => {
       <div className="bigRecommendBox">
         <div className="recommendTitle">推荐歌单</div>
         <div className="recommendBox">
-          {recommendList.map(
-            (
-              item: {
-                picUrl: string;
-                name: string;
-                id: number;
-              },
-              index,
-            ) => {
-              return (
-                <div className="CardBox" key={index} onClick={() => sendId(item.id)}>
-                  {/*将封面图片传递给TheCard组件*/}
-                  <TheCard ImageSrc={item.picUrl} theDescription={item.name} />
-                </div>
-              );
-            },
-          )}
+          {recommendList.map((item: RecommendListItem, index: number) => {
+            return (
+              <div className="CardBox" key={index} onClick={() => sendId(item.id)}>
+                {/*将封面图片传递给TheCard组件*/}
+                <TheCard ImageSrc={item.picUrl} theDescription={item.name} />
+              </div>
+            );
+          })}
         </div>
       </div>
     </RecommendWrapper>
