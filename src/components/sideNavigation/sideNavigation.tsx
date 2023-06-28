@@ -11,6 +11,7 @@ import { HeaderWrapper } from '@/components/sideNavigation/style';
 import type { MenuProps } from 'antd';
 import { Button, Menu } from 'antd';
 import { useNavigate } from 'react-router-dom';
+import { darkBackGroundColor, darkColor } from '@/assets/theme';
 
 type MenuItem = Required<MenuProps>['items'][number];
 
@@ -87,13 +88,7 @@ const SideNavigation: React.FC = () => {
         inlineCollapsed={collapsed}
         items={items}
         onClick={changeRouter}
-        style={{
-          minWidth: '0',
-          maxWidth: '300px',
-          flex: 'auto',
-          backgroundColor: '#121212',
-          height: '100%',
-        }}
+        className="Menu"
       />
     </HeaderWrapper>
   );

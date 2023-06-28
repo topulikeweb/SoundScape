@@ -1,6 +1,17 @@
-// 切换主题的时候方便切换
-export const fontColor = 'aliceblue';
-export const darkBackGroundColor = '#000000';
-export const darkColor = '#121212';
+import { useSelector } from 'react-redux';
 
-export const transparentWhite = '#494949';
+// 将fontColor交由redux进行管理
+export const fontColor = (): string => {
+  return useSelector((state: any) => state.Theme.theme.fontColor);
+};
+
+export const darkBackGroundColor = (): string => {
+  return useSelector((state: any) => state.Theme.theme.darkBackGroundColor);
+};
+
+export const darkColor = (): any => {
+  return useSelector((state: any) => state.Theme.theme.darkColor);
+};
+export const transparentWhite = (): any => {
+  return useSelector((state: any) => state.Theme.theme.transparentWhite);
+};

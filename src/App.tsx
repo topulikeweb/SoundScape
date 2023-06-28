@@ -4,8 +4,8 @@ import routes from '@/router';
 import SideNavigation from '@/components/sideNavigation/sideNavigation';
 import { ConfigProvider } from 'antd';
 import TopNavigation from '@/components/topNavigation/topNavigation';
-
 import Player from '@/components/player/Player';
+import AppHyWrapper from '@/assets/css/reset';
 
 function App() {
   return (
@@ -16,14 +16,16 @@ function App() {
         },
       }}
     >
-      <div className="App">
-        <SideNavigation></SideNavigation>
-        <TopNavigation></TopNavigation>
-        <Suspense fallback="">
-          <div className="contentBox">{useRoutes(routes)}</div>
-        </Suspense>
-        <Player />
-      </div>
+      <AppHyWrapper>
+        <div className="App">
+          <SideNavigation></SideNavigation>
+          <TopNavigation></TopNavigation>
+          <Suspense fallback="">
+            <div className="contentBox">{useRoutes(routes)}</div>
+          </Suspense>
+          <Player />
+        </div>
+      </AppHyWrapper>
     </ConfigProvider>
   );
 }

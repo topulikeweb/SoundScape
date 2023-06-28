@@ -1,14 +1,15 @@
 import { memo, useEffect, useState } from 'react';
-import { useSelector } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import MusicResultHyWrapper from '@/views/MusicResult/style';
 import { Pagination } from 'antd';
-import { changeMusicList } from '@/store/moudle/musicList';
-import { getSearchSuggestion, toSearchSongsResult } from '@/service';
+import { getMusicUrl, toSearchSongsResult } from '@/service';
 import { IMusicLists } from '@/views/MusicResult/MusicResult_type';
 import { useLocation } from 'react-router';
+import { changeMusicUrl } from '@/store/moudle/musicUrl';
 
 function MusicResult() {
   // 获取传递过来的keyword
+  const dispatch = useDispatch();
   const location = useLocation();
   const useSearchParam = new URLSearchParams(location.search);
   const keyword = useSearchParam.get('keyword');
@@ -32,7 +33,9 @@ function MusicResult() {
    * @param item
    */
   const playMusic = (item: any) => {
-    console.log(item);
+    getMusicUrl(item.id).then((res: any) => {
+      dispatch(changeMusicUrl(res.data.data[0].url));
+    });
   };
   /**
    * @author topu
@@ -112,6 +115,7 @@ function MusicResult() {
           onChange={(e) => changePage(e)}
           style={{ marginTop: '50px' }}
         />
+        <div className="bottomContainer"></div>
       </div>
     </MusicResultHyWrapper>
   );

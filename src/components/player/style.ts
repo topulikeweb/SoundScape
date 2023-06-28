@@ -13,6 +13,23 @@ const HyPlayerWrapper = styled.div`
     background-color: ${darkBackGroundColor};
     height: 100px;
     overflow: hidden;
+    border-radius: 15px 15px 0 0;
+    transition: background-color linear 1s;
+  }
+
+  .playerBox {
+    flex: 6;
+    height: 100px;
+    background-color: ${darkBackGroundColor};
+    transition: background-color linear 1s;
+  }
+
+  .PlayerLeftBox {
+    flex: 1;
+    height: 100px;
+    background-color: ${darkBackGroundColor};
+    display: flex;
+    transition: background-color linear 1s;
   }
 
   .imageBox {

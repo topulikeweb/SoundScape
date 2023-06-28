@@ -1,6 +1,6 @@
 import styled from 'styled-components';
 
-import '@/assets/css/reset.less';
+import '@/assets/css/reset';
 
 const RecommendWrapper = styled.div`
   .recommendBox {

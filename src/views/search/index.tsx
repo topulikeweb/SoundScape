@@ -52,7 +52,7 @@ const DownLoad: FC = function () {
   const onSearch = (value: string) => {
     // 判断搜索框是否有内容
     if (value) {
-      toSearchSongsResult(value, 90, 0).then((res: any) => {
+      toSearchSongsResult(value, 100, 0).then((res: any) => {
         console.log(res.data.result.songs);
         dispatch(changeMusicList(res.data));
         // 跳转到歌曲搜索结果界面

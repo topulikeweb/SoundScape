@@ -33,26 +33,14 @@ const Player: FC = () => {
     <HyPlayerWrapper>
       <div className="containerBox">
         <AudioPlayer
-          style={{
-            flex: '6',
-            height: '100px',
-            backgroundColor: '#000000',
-          }}
+          className="playerBox"
           autoPlay
           src={currentMusicUrl}
           onPlay={() => console.log('onPlay')}
           // other props here
         />
         {/*展示播放的歌曲*/}
-        <div
-          style={{
-            // width: '5vw',
-            flex: '1',
-            height: '100px',
-            backgroundColor: '#000000',
-            display: 'flex',
-          }}
-        >
+        <div className="playerLeftBox">
           <div>
             {/*这里al可能不存在，当第一次进入的时候就会报错，因此用？表示不是必须存在*/}
             <Image className="imageBox" src={currentMusicInfo.al?.picUrl || musicImage}></Image>

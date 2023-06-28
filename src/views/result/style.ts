@@ -4,7 +4,7 @@ import { darkBackGroundColor, darkColor, transparentWhite } from '@/assets/theme
 const HyWrapper = styled.div`
   .resultBackground {
     width: 100vw;
-    height: 100vh;
+    //height: 100vh;
     background: linear-gradient(to bottom, #486373, #4b4b4b, #000000);
   }
 

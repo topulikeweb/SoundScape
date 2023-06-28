@@ -1,5 +1,5 @@
 import styled from 'styled-components';
-import { darkBackGroundColor, darkColor, fontColor, transparentWhite } from '@/assets/theme';
+import { fontColor, transparentWhite } from '@/assets/theme';
 
 const MusicResultHyWrapper = styled.div`
   .bigContainer {
@@ -96,6 +96,11 @@ const MusicResultHyWrapper = styled.div`
 
   .pagination {
     margin-bottom: 200px;
+  }
+
+  .bottomContainer {
+    width: 100vw;
+    height: 20%;
   }
 `;
 

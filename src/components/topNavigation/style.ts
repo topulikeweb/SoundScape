@@ -5,6 +5,10 @@ const HyHeadWrapper = styled.div`
     width: 90vw;
     height: 50px;
     position: fixed;
+    display: flex;
+    justify-content: space-between;
+    justify-items: center;
+    justify-self: center;
   }
 
   .btnContainer {
@@ -14,6 +18,12 @@ const HyHeadWrapper = styled.div`
     right: 100px;
     display: flex;
     justify-content: space-around;
+  }
+
+  .SwitchBox {
+    width: 3%;
+    height: 40%;
+    margin: auto;
   }
 `;
 export default HyHeadWrapper;
