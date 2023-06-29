@@ -34,7 +34,7 @@ const MusicResultHyWrapper = styled.div`
   }
 
   .ListContainer {
-    margin-top: 10%;
+    margin-top: 5%;
     width: 100%;
     height: 2000px;
   }
@@ -101,6 +101,64 @@ const MusicResultHyWrapper = styled.div`
   .bottomContainer {
     width: 100vw;
     height: 20%;
+  }
+
+  .CardBox {
+    margin-top: 30px;
+    width: 140px;
+    height: 180px;
+    flex: 1;
+  }
+
+  .CardImage {
+    height: 100px;
+  }
+
+  .descriptionBox {
+    height: 30vh;
+    width: 100vw;
+    display: flex;
+    justify-content: space-around;
+    flex-direction: row;
+    flex-wrap: wrap;
+  }
+
+  .leftContainer {
+    flex: 6;
+    display: flex;
+    flex-wrap: wrap;
+  }
+
+  .rightContainer {
+    flex: 1;
+  }
+
+  .titleBox {
+    width: 100%;
+  }
+
+  .titleName {
+    width: 100%;
+    font-size: 45px;
+  }
+
+  .imageMVBox {
+    margin-right: 5%;
+    z-index: 9999;
+    height: 100%;
+    width: 3%;
+  }
+
+  .MVImage {
+    width: 100%;
+    height: 60%;
+    margin: 40% auto;
+    border-radius: 10px;
+
+    &:hover {
+      background-color: ${fontColor};
+      transition: background-color 0.5s linear;
+    }
   }
 `;
 

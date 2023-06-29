@@ -120,7 +120,7 @@ const Result: FC = () => {
    */
 
   const changePage = (e: any) => {
-    getPlayListAllSongsFn(id, e, 8);
+    getPlayListAllSongsFn(id, (e - 1) * 8, 8);
   };
 
   /**
@@ -249,7 +249,7 @@ const Result: FC = () => {
             );
           })}
           <Pagination
-            defaultCurrent={1}
+            defaultCurrent={2}
             pageSize={8}
             total={pageNum}
             onChange={(e) => changePage(e)}

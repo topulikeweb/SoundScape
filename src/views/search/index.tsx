@@ -6,6 +6,7 @@ import {
   getHotSearchSongs,
   getPlayListCategory,
   getSearchSuggestion,
+  searchSongsMultipleMatching,
   toSearchSongsResult,
 } from '@/service';
 import { IGetPlaylistDetails } from '@/service/type';
@@ -52,8 +53,10 @@ const DownLoad: FC = function () {
   const onSearch = (value: string) => {
     // 判断搜索框是否有内容
     if (value) {
+      searchSongsMultipleMatching(value).then((res: any) => {
+        console.log(res);
+      });
       toSearchSongsResult(value, 100, 0).then((res: any) => {
-        console.log(res.data.result.songs);
         dispatch(changeMusicList(res.data));
         // 跳转到歌曲搜索结果界面
         navigate(`/MusicResult?keyword=${value}`);

@@ -95,3 +95,25 @@ export const toSearchSongsResult = (keywords: string, limit: number, offset: num
     params: { keywords, limit, offset },
   });
 };
+
+/**
+ * @author topu
+ * @date 2023/6/29
+ * @Description 根据搜索的歌曲进行模糊匹配
+ * @return 返回值
+ * @param keywords
+ */
+export const searchSongsMultipleMatching = (keywords: string) => {
+  return apiResponse.get('/search/multimatch', { params: { keywords } });
+};
+
+/**
+ * @author topu
+ * @date 2023/6/29
+ * @Description 获取视频播放地址
+ * @return 返回值
+ * @param id
+ */
+export const getVideoResource = (id: number) => {
+  return apiResponse.get('/mv/url', { params: { id } });
+};

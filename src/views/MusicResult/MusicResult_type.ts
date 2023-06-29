@@ -5,4 +5,9 @@ interface IMusicLists {
   };
 }
 
-export type { IMusicLists };
+interface IResultList {
+  artist: any[];
+  album: { alias: string[]; name: string }[];
+}
+
+export type { IMusicLists, IResultList };
