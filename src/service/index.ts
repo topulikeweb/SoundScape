@@ -117,3 +117,16 @@ export const searchSongsMultipleMatching = (keywords: string) => {
 export const getVideoResource = (id: number) => {
   return apiResponse.get('/mv/url', { params: { id } });
 };
+
+/**
+ * @author topu
+ * @date 2023/6/30
+ * @Description 获取MV的评论
+ * @return 返回值
+ * @param id
+ * @param limit
+ * @param offset
+ */
+export const getMVComment = (id: number, limit: number, offset: number) => {
+  return apiResponse.get('/comment/mv', { params: { id, limit, offset } });
+};

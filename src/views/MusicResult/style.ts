@@ -144,9 +144,21 @@ const MusicResultHyWrapper = styled.div`
 
   .imageMVBox {
     margin-right: 5%;
-    z-index: 9999;
     height: 100%;
     width: 3%;
+  }
+
+  .imageMVBoxs {
+    margin-right: 5%;
+    height: 100%;
+    width: 3%;
+  }
+
+  .MVImages {
+    width: 100%;
+    height: 60%;
+    margin: 40% auto;
+    border-radius: 10px;
   }
 
   .MVImage {
@@ -159,6 +171,10 @@ const MusicResultHyWrapper = styled.div`
       background-color: ${fontColor};
       transition: background-color 0.5s linear;
     }
+  }
+
+  .commentTitle {
+    font-size: 50px;
   }
 `;
 

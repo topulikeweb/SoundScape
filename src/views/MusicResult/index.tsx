@@ -2,13 +2,41 @@ import { memo, useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import MusicResultHyWrapper from '@/views/MusicResult/style';
 import { Card, Pagination } from 'antd';
-import { getMusicUrl, searchSongsMultipleMatching, toSearchSongsResult } from '@/service';
+import {
+  getMusicUrl,
+  getMVComment,
+  getVideoResource,
+  searchSongsMultipleMatching,
+  toSearchSongsResult,
+} from '@/service';
 import { IMusicLists } from '@/views/MusicResult/MusicResult_type';
 import { useLocation } from 'react-router';
 import { changeMusicUrl } from '@/store/moudle/musicUrl';
 import type { IResultList } from '@/views/MusicResult/MusicResult_type';
 import { changeMusicList } from '@/store/moudle/musicList';
 import MVImage from '@/assets/img/MV.png';
+import { Button, Drawer, Radio, Space } from 'antd';
+import type { DrawerProps } from 'antd/es/drawer';
+import ReactPlayer from 'react-player';
+import { Avatar, Divider, List, Skeleton } from 'antd';
+import InfiniteScroll from 'react-infinite-scroll-component';
+import { darkBackGroundColor } from '@/assets/theme';
+
+interface DataType {
+  content: string;
+  name: {
+    title: string;
+    first: string;
+    last: string;
+  };
+  email: string;
+  user: {
+    avatarUrl: string;
+    nickname: string;
+    thumbnail: string;
+  };
+  timeStr: string;
+}
 
 function MusicResult() {
   const dispatch = useDispatch();
@@ -26,11 +54,17 @@ function MusicResult() {
     artist: [],
     album: [],
   });
-
+  const [MVurl, setMVurl] = useState('');
+  // 抽屉
+  const [open, setOpen] = useState(false);
+  const [placement, setPlacement] = useState<DrawerProps['placement']>('right');
+  const [loading, setLoading] = useState(false);
+  const [data, setData] = useState<DataType[]>([]);
+  const [id, setID] = useState(0);
+  const [page, setPage] = useState(0);
   useEffect(() => {
     setMusicLists(MusicList);
   }, [MusicList]);
-
   useEffect(() => {
     if (keyword) {
       getSongsDescription(keyword);
@@ -66,12 +100,75 @@ function MusicResult() {
     });
   };
 
+  /**
+   * @author topu
+   * @date 2023/6/30
+   * @Description 获取歌曲的详情
+   * @return 返回值
+   * @param keywords
+   */
   const getSongsDescription = (keywords: string) => {
     searchSongsMultipleMatching(keywords).then((res: any) => {
       if (res.data.result) {
         setResultList(res.data.result);
       }
     });
+  };
+  /**
+   * @author topu
+   * @date 2023/6/30
+   * @Description 获取MV
+   * @return 返回值
+   */
+  const getMV = (e: any, item: any) => {
+    e.stopPropagation();
+    showDrawer();
+    setID(item.mvid);
+    getVideoResource(item.mvid).then((res: any) => {
+      if (res.data.code === 200) {
+        setMVurl(res.data.data.url);
+      }
+    });
+    getMVCommentFN(item.mvid);
+  };
+
+  const showDrawer = () => {
+    setOpen(true);
+  };
+
+  const onClose = () => {
+    setOpen(false);
+  };
+  /**
+   * @author topu
+   * @date 2023/6/30
+   * @Description 获取mv评论
+   * @return 返回值
+   * @param id
+   */
+  const getMVCommentFN = (id: number) => {
+    getMVComment(id, 20, 0).then((res: any) => {
+      if (res.data.code === 200) {
+        console.log(res.data.comments);
+        setData(res.data.comments);
+      }
+    });
+  };
+
+  const loadMoreData = () => {
+    if (loading) {
+      return;
+    }
+    setPage(page + 1);
+    setLoading(true);
+    getMVComment(id, 20, (page - 1) * 20)
+      .then((res: any) => {
+        setData([...data, ...res.data.comments]);
+        setLoading(false);
+      })
+      .catch(() => {
+        setLoading(false);
+      });
   };
 
   return (
@@ -132,12 +229,12 @@ function MusicResult() {
             <div className="album">{item.album.name}</div>
             <div className="time">{conversionFormat(item.duration)}</div>
             {item.mvid ? (
-              <div className="imageMVBox">
+              <div className="imageMVBox" onClick={(e) => getMV(e, item)}>
                 <img src={MVImage} alt="MV" className="MVImage" />
               </div>
             ) : (
-              <div className="imageMVBox">
-                <div className="MVImage"></div>
+              <div className="imageMVBoxs">
+                <div className="MVImages"></div>
               </div>
             )}
           </div>
@@ -150,6 +247,62 @@ function MusicResult() {
           style={{ marginTop: '50px' }}
         />
       </div>
+
+      <>
+        <Drawer
+          title={keyword}
+          placement={placement}
+          width={1000}
+          onClose={onClose}
+          open={open}
+          extra={
+            <Space>
+              <Button type="primary" onClick={onClose}>
+                关闭
+              </Button>
+            </Space>
+          }
+        >
+          <ReactPlayer
+            url={MVurl}
+            playing={true}
+            controls={true}
+            style={{ margin: 'auto' }}
+          ></ReactPlayer>
+          <div className="commentTitle">评论</div>
+          <div
+            id="scrollableDiv"
+            style={{
+              height: 800,
+              overflow: 'auto',
+            }}
+          >
+            <InfiniteScroll
+              dataLength={data.length}
+              next={loadMoreData}
+              hasMore={data.length < 200}
+              loader={<Skeleton avatar paragraph={{ rows: 1 }} active />}
+              endMessage={<Divider plain>没有更多啦！ 🤐</Divider>}
+              scrollableTarget="scrollableDiv"
+            >
+              <List
+                dataSource={data}
+                renderItem={(item) => (
+                  <List.Item key={item.email}>
+                    <List.Item.Meta
+                      avatar={<Avatar src={item.user.avatarUrl} />}
+                      title={<a href="https://ant.design">{item.user.nickname}</a>}
+                      description={item.content}
+                    />
+                    <div>{item.timeStr}</div>
+                  </List.Item>
+                )}
+              />
+              <Button onClick={loadMoreData}>加载更多</Button>
+            </InfiniteScroll>
+          </div>
+        </Drawer>
+      </>
     </MusicResultHyWrapper>
   );
 }

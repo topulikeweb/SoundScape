@@ -12,6 +12,11 @@ const AppHyWrapper = styled.div`
     color: #333;
   }
 
+  * {
+    padding: 0;
+    margin: 0;
+  }
+
   img {
     vertical-align: top;
   }
